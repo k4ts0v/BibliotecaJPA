@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.0">
+    <persistence-unit name="persistence">
+        <class>modelo.dto.Libro</class>
+        <class>modelo.dto.Ejemplar</class>
+        <class>modelo.dto.Usuario</class>
+        <class>modelo.dto.Prestamo</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/bibliotecaJPA"/>
+            <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="user"/>
+            <property name="hibernate.connection.password" value="P455w0rd!"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
