@@ -19,6 +19,10 @@ public class MenuGestionPrestamos {
     static GestionPrestamo gestionPrestamo = new GestionPrestamo();
     static GestionUsuario gestionUsuario = new GestionUsuario();
     static GestionEjemplar gestionEjemplar = new GestionEjemplar();
+
+    /**
+     * Método que imprime el menú principal.
+     */
     private static void prtMenu() {
         System.out.println("""
                 1 - Añadir un prestamo
@@ -31,6 +35,9 @@ public class MenuGestionPrestamos {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private static void menu() {
         boolean salida = false;
         while (!salida) {
@@ -49,6 +56,10 @@ public class MenuGestionPrestamos {
         }
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo préstamo con todos los datos, exceptuando el ID.
+     * @return Objeto préstamo.
+     */
     private static Prestamo getDatosPrestamo() {
         System.out.println("Ingrese el ID del usuario");
         Integer idUsuario = k.nextInt();
@@ -63,12 +74,20 @@ public class MenuGestionPrestamos {
         return new Prestamo(gestionUsuario.getUsuarioById(idUsuario), gestionEjemplar.getEjemplarById(idEjemplar), LocalDate.parse(fechaInicio, dtf), fechaFin);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo préstamo con el ID.
+     * @return Objeto préstamo.
+     */
     private static Prestamo getIdPrestamo() {
         System.out.println("Ingrese el ID del prestamo");
         Integer id = k.nextInt();
         return new Prestamo(id, new Usuario(), new Ejemplar(), LocalDate.now(), null);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo préstamo con todos los datos.
+     * @return Objeto préstamo.
+     */
     private static Prestamo getIdDatosPrestamo() {
         System.out.println("Ingrese el ID del prestamo");
         Integer id = k.nextInt();
@@ -85,6 +104,9 @@ public class MenuGestionPrestamos {
         return new Prestamo(id, gestionUsuario.getUsuarioById(idUsuario), gestionEjemplar.getEjemplarById(idEjemplar), LocalDate.parse(fechaInicio, dtf), fechaFin);
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public static void run() {
         menu();
     }

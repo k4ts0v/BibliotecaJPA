@@ -1,7 +1,6 @@
 package modelo.gestion;
 
 import modelo.dao.DAOPrestamo;
-import modelo.dto.Ejemplar;
 import modelo.dto.Prestamo;
 import modelo.dto.Usuario;
 
@@ -16,6 +15,10 @@ public class GestionPrestamo {
     private GestionEjemplar gestionEjemplar;
     private GestionUsuario gestionUsuario;
 
+
+    /**
+     * Constructor de la clase.
+     */
     public GestionPrestamo() {
         listaPrestamos = new ArrayList<>();
         listaPrestamosUsuario = new ArrayList<>();
@@ -29,6 +32,11 @@ public class GestionPrestamo {
         }
     }
 
+    /**
+     * Método que crea un nuevo préstamo en la BD, y lo añade a la lista de préstamos de la memoria.
+     * @param prestamo Objeto prestamo a crear.
+     * @return 1 si se ha creado correctamente, -1 en caso contrario.
+     */
     public Integer createPrestamo(Prestamo prestamo) {
         try {
             if(verificarNumPrestamos(prestamo.getUsuario()) && !gestionUsuario.verificarPenalizacion(prestamo.getUsuario()) && gestionEjemplar.verificarEstadoEjemplar(prestamo.getEjemplar())) {
@@ -45,6 +53,11 @@ public class GestionPrestamo {
     }
 
 
+    /**
+     * Método que lee un préstamo de la BD.
+     * @param prestamo Objeto prestamo a leer.
+     * @return 1 si se ha encontrado el préstamo, -1 en caso contrario.
+     */
     public Integer readPrestamo(Prestamo prestamo) {
         Prestamo prestamoDB = null;
         try {
@@ -59,6 +72,10 @@ public class GestionPrestamo {
         return -1;
     }
 
+    /**
+     * Método que lee todos los préstamos de la BD.
+     * @return 1 si se han leido todos los préstamos, -1 en caso contrario.
+     */
     public Integer readAllPrestamos() {
         listaPrestamos.forEach(prestamo -> System.out.println(prestamo));
         return 1;
@@ -75,6 +92,11 @@ public class GestionPrestamo {
         return -1;
     }
 
+    /**
+     * Método que actualiza un préstamo en la BD y en la lista de préstamos de la memoria.
+     * @param prestamo Objeto prestamo a actualizar.
+     * @return 1 si se ha actualizado correctamente, -1 en caso contrario.
+     */
     public Integer updatePrestamo(Prestamo prestamo) {
         try {
             if(daoPrestamo.update(prestamo) == 1) {
@@ -87,6 +109,11 @@ public class GestionPrestamo {
         return -1;
     }
 
+    /**
+     * Método que elimina un préstamo de la BD y de la lista de préstamos de la memoria.
+     * @param prestamo Objeto prestamo a eliminar.
+     * @return 1 si se ha eliminado correctamente, -1 en caso contrario.
+     */
     public Integer deletePrestamo(Prestamo prestamo) {
         try {
             if(daoPrestamo.delete(prestamo) == 1) {
@@ -99,6 +126,11 @@ public class GestionPrestamo {
         return -1;
     }
 
+    /**
+     * Método que verifica si un usuario no ha superado el límite de préstamos.
+     * @param usuario Objeto usuario del que se quiere verificar el número de préstamos.
+     * @return Verdadero si el usuario no ha superado el límite de préstamos, falso en caso contrario.
+     */
     public boolean verificarNumPrestamos(Usuario usuario) {
         if (daoPrestamo.verificarNumPrestamos(usuario.getId())) {
             return true;
@@ -108,10 +140,18 @@ public class GestionPrestamo {
         }
     }
 
+    /**
+     * Método que obtiene la lista de préstamos de la memoria.
+     * @return Lista de préstamos.
+     */
     public ArrayList<Prestamo> getListaPrestamos() {
         return listaPrestamos;
     }
 
+    /**
+     * Método que calcula la penalización del usuario y se la añade.
+     * @param prestamo Objeto prestamo.
+     */
     public void setPenalizacionUsuario(Prestamo prestamo) {
         System.out.println(prestamo.getUsuario().toString());
         int prestamosFueraPlazo = 0;
@@ -134,10 +174,14 @@ public class GestionPrestamo {
         }
     }
 
+    /** Método que devuelve un préstamo. 
+     * Pone la fecha de devolución en la fecha actual y actualiza el estado del ejemplar. 
+     * Actualiza la penalización del usuario.
+     * @param prestamo Objeto prestamo.
+     */
     public void devolverPrestamo(Prestamo prestamo) {
         try {
             prestamo = daoPrestamo.read(prestamo);
-            System.out.println(prestamo.toString());
             prestamo.setFechaDevolucion(LocalDate.now());
             prestamo.getEjemplar().setEstado("Disponible");
             daoPrestamo.update(prestamo);

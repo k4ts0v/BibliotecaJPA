@@ -16,6 +16,10 @@ public class MenuUsuarioNormal {
     static GestionPrestamo gestionPrestamo = new GestionPrestamo();
     static GestionEjemplar gestionEjemplar = new GestionEjemplar();
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    /**
+     * Método que imprime el menú principal.
+     */
     private static void prtMenu() {
         System.out.println("""
                 Aquí puede gestionar los préstamos que haya realizado en la biblioteca.
@@ -30,6 +34,9 @@ public class MenuUsuarioNormal {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private static void menu() {
         boolean salida = false;
         while (!salida) {
@@ -48,6 +55,10 @@ public class MenuUsuarioNormal {
         }
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo préstamo con todos los datos, exceptuando el ID.
+     * @return Objeto préstamo.
+     */
     private static Prestamo getDatosPrestamo() {
         System.out.println("Ingrese el ID del ejemplar");
         Integer idEjemplar = k.nextInt();
@@ -60,12 +71,20 @@ public class MenuUsuarioNormal {
         return new Prestamo(getUsuarioLogado(), gestionEjemplar.getEjemplarById(idEjemplar), LocalDate.parse(fechaInicio, dtf), fechaFin);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo préstamo con el ID.
+     * @return Objeto préstamo.
+     */
     private static Prestamo getIdPrestamo() {
         System.out.println("Ingrese el ID del prestamo");
         Integer id = k.nextInt();
         return new Prestamo(id, new Usuario(), new Ejemplar(), LocalDate.now(), null);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo préstamo con todos los datos.
+     * @return Objeto préstamo.
+     */
     private static Prestamo getIdDatosPrestamo() {
         System.out.println("Ingrese el ID del prestamo");
         Integer id = k.nextInt();
@@ -81,10 +100,17 @@ public class MenuUsuarioNormal {
         return new Prestamo(id, getUsuarioLogado(), gestionEjemplar.getEjemplarById(idEjemplar), LocalDate.parse(fechaInicio, dtf), fechaFin);
     }
 
+    /**
+     * Método que obtiene el usuario logueado.
+     * @return Objeto usuario, que contiene el usuario que ha iniciado sesión.
+     */
     private static Usuario getUsuarioLogado() {
         return MenuPrincipal.getUsuarioLogado();
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public static void run() {
         menu();
     }

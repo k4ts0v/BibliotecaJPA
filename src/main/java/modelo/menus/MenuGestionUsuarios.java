@@ -11,6 +11,11 @@ public class MenuGestionUsuarios {
     static Scanner k =  new Scanner(System.in);
     static GestionUsuario gestionUsuario = new GestionUsuario();
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+
+    /**
+     * Método que imprime el menú principal.
+     */
     private static void prtMenu() {
         System.out.println("""
                 1 - Añadir un usuario
@@ -22,6 +27,9 @@ public class MenuGestionUsuarios {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private static void menu() {
         boolean salida = false;
         while (!salida) {
@@ -39,6 +47,10 @@ public class MenuGestionUsuarios {
         }
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo usuario con todos los datos, exceptuando el ID.
+     * @return Objeto usuario.
+     */
     private static Usuario getDatosUsuario() {
         k.nextLine();
         System.out.print("Ingrese el DNI del usuario:");
@@ -57,6 +69,10 @@ public class MenuGestionUsuarios {
         return new Usuario(dni, nombre, email, password, tipo, penalizacionHasta);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo usuario con el ID.
+     * @return Objeto usuario.
+     */
     private static Usuario getIdUsuario() {
         k.nextLine();
         System.out.print("Ingrese el ID del usuario");
@@ -64,6 +80,10 @@ public class MenuGestionUsuarios {
         return new Usuario(id, "", "", "", "", "", null);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo usuario con todos los datos.
+     * @return Objeto usuario.
+     */
     private static Usuario getIdDatosUsuario() {
         k.nextLine();
         System.out.print("Ingrese el ID del usuario");
@@ -84,6 +104,9 @@ public class MenuGestionUsuarios {
         return new Usuario(id, dni, nombre, email, password, tipo, penalizacionHasta);
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public static void run() {
         menu();
     }

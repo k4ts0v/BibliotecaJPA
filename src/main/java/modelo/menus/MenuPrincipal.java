@@ -13,6 +13,9 @@ public class MenuPrincipal {
     GestionUsuario gestionUsuario = new GestionUsuario();
     static Usuario usuarioLogado = null;
 
+    /**
+     * Método que imprime el menú principal.
+     */
     private void prtMenu() {
         System.out.println("""
                 1 - Iniciar sesión como miembro de la biblioteca
@@ -21,6 +24,9 @@ public class MenuPrincipal {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private void menu() {
         boolean salida = false;
         while (!salida) {
@@ -35,6 +41,10 @@ public class MenuPrincipal {
         }
     }
 
+    /**
+     * Método que recoge los datos necesarios para iniciar sesión (email y password).
+     * @return Objeto Usuario con los datos recogidos anteriormente.
+     */
     private Usuario recogerDatos() {
         k.nextLine();
         String tipo;
@@ -45,6 +55,9 @@ public class MenuPrincipal {
         return new Usuario(null, "", "", email, password, "", LocalDate.now());
     }
 
+    /**
+     * Método que inicia sesión como miembro de la biblioteca.
+     */
     public void loginUsuario() {
         Usuario usuario = recogerDatos();
         Usuario usuarioPersistido = gestionUsuario.getUsuarioByEmailPassword(usuario.getEmail(), usuario.getPassword());
@@ -56,6 +69,9 @@ public class MenuPrincipal {
         }
     }
 
+    /**
+     * Método que inicia sesión como administrador de la biblioteca.
+     */
     public void loginAdministrador() {
         Usuario usuario = recogerDatos();
         Usuario usuarioPersistido = gestionUsuario.getUsuarioByEmailPassword(usuario.getEmail(), usuario.getPassword());
@@ -67,14 +83,25 @@ public class MenuPrincipal {
         }
     }
 
+    /**
+     * Método que obtiene el usuario logueado.
+     * @return Objeto usuario, que contiene el usuario que ha iniciado sesión.
+     */
     public static Usuario getUsuarioLogado() {
         return usuarioLogado;
     }
 
+    /**
+     * Método que establece el usuario logueado.
+     * @param usuario Objeto usuario, que contiene el usuario que ha iniciado sesión.
+     */
     public void setUsuarioLogado(Usuario usuario) {
         this.usuarioLogado = usuario;
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public void run() {
         menu();
     }

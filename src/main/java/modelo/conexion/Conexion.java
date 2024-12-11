@@ -15,14 +15,22 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class Conexion {
-    EntityManagerFactory emf;
-    static EntityManager em;
+    EntityManagerFactory emf; // EntityManagerFactory. Maneja los Entitymanager.
+    static EntityManager em; // EntityManager. Maneja las conexiones a la base de datos.
 
+    /**
+     * Constructor de la clase.
+     * Crea un EntityManagerFactory y un EntityManager.
+     */
     public Conexion() {
         emf = Persistence.createEntityManagerFactory("persistence");
         em = emf.createEntityManager();
     }
 
+    /**
+     * Método que obtiene el EntityManager.
+     * @return EntityManager.
+     */
     public static EntityManager getConexion() {
         if (em == null) {
             Conexion conexion = new Conexion();
@@ -30,6 +38,9 @@ public class Conexion {
         return em;
     }
 
+    /**
+     * Método que cierra las conexiones a la base de datos.
+     */
     public void close() {
         em.close();
         emf.close();

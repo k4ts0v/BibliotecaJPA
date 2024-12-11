@@ -8,6 +8,10 @@ import java.util.Scanner;
 public class MenuGestionLibros {
     static Scanner k =  new Scanner(System.in);
     static GestionLibro gestionLibro = new GestionLibro();
+
+    /**
+     * Método que imprime el menú principal.
+     */
     private static void prtMenu() {
         System.out.println("""
                 1 - Añadir un libro
@@ -19,6 +23,9 @@ public class MenuGestionLibros {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private static void menu() {
         boolean salida = false;
         while (!salida) {
@@ -36,6 +43,10 @@ public class MenuGestionLibros {
         }
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo libro con  el ID.
+     * @return Objeto libro.
+     */
     private static Libro getIdLibro() {
         k.nextLine();
         System.out.println("Ingrese el ISBN del libro");
@@ -43,6 +54,10 @@ public class MenuGestionLibros {
         return new Libro(isbn, "Título", "Autor");
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo libro con todos los datos.
+     * @return Objeto libro.
+     */
     private static Libro getIdDatosLibro() {
         k.nextLine();
         System.out.println("Ingrese el ISBN del libro");
@@ -54,6 +69,9 @@ public class MenuGestionLibros {
         return new Libro(isbn, tituloLibro, autorLibro);
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public static void run() {
         menu();
     }

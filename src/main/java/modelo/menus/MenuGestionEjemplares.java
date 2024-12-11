@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class MenuGestionEjemplares {
     static Scanner k =  new Scanner(System.in);
     public static GestionEjemplar gestionEjemplar = new GestionEjemplar();
+
+    /**
+     * Método que imprime el menú principal.
+     */
     private static void prtMenu() {
         System.out.println("""
                 1 - Añadir un ejemplar
@@ -21,6 +25,9 @@ public class MenuGestionEjemplares {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private static void menu() {
         boolean salida = false;
         while (!salida) {
@@ -39,6 +46,10 @@ public class MenuGestionEjemplares {
         }
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo ejemplar con todos los datos, exceptuando el ID.
+     * @return Objeto ejemplar.
+     */
     private static Ejemplar getDatosEjemplar() {
         k.nextLine();
         System.out.println("Ingrese el ISBN del libro");
@@ -48,12 +59,20 @@ public class MenuGestionEjemplares {
         return new Ejemplar(0, new Libro(isbn, "", ""), estadoEjemplar);
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo ejemplar con el ID.
+     * @return Objeto ejemplar.
+     */
     private static Ejemplar getIdEjemplar() {
         System.out.println("Ingrese el ID del ejemplar");
         Integer id = k.nextInt();
         return new Ejemplar(id, new Libro(), "");
     }
 
+    /**
+     * Método que obtiene los datos necesarios para crear un nuevo ejemplar con todos los datos.
+     * @return Objeto ejemplar.
+     */
     private static Ejemplar getIdDatosEjemplar() {
         System.out.println("Ingrese el ID del ejemplar");
         Integer id = k.nextInt();
@@ -65,6 +84,9 @@ public class MenuGestionEjemplares {
         return new Ejemplar(id, new Libro(isbn, "", ""), estadoEjemplar);
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public static void run() {
         menu();
     }

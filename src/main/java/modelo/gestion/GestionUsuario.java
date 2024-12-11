@@ -3,7 +3,6 @@ package modelo.gestion;
 import jakarta.persistence.NoResultException;
 import modelo.dao.DAOUsuario;
 import modelo.dto.Usuario;
-import org.hibernate.annotations.processing.SQL;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,6 +12,9 @@ public class GestionUsuario {
     private ArrayList<Usuario> listaUsuarios;
     private DAOUsuario daoUsuario;
 
+    /**
+     * Constructor de la clase.
+     */
     public GestionUsuario() {
         listaUsuarios = new ArrayList<>();
         daoUsuario = new DAOUsuario();
@@ -23,6 +25,11 @@ public class GestionUsuario {
         }
     }
 
+    /**
+     * Método que crea un nuevo usuario en la BD, y lo añade a la lista de usuarios de la memoria.
+     * @param usuario Objeto usuario a crear.
+     * @return 1 si se ha creado correctamente, -1 en caso contrario.
+     */
     public Integer createUsuario(Usuario usuario) {
         try {
             if(daoUsuario.create(usuario) == 1) {
@@ -35,6 +42,11 @@ public class GestionUsuario {
         return -1;
     }
 
+    /**
+     * Método que lee un usuario de la BD.
+     * @param usuario Objeto usuario a leer.
+     * @return 1 si se ha encontrado el usuario, -1 en caso contrario.
+     */
     public Integer readUsuario(Usuario usuario) {
         try {
             Usuario usuarioDB = daoUsuario.read(usuario);
@@ -48,11 +60,20 @@ public class GestionUsuario {
         return -1;
     }
 
+    /**
+     * Método que lee todos los usuarios de la BD.
+     * @return 1 si se han leido todos los usuarios, -1 en caso contrario.
+     */
     public Integer readAllUsuarios() {
         listaUsuarios.forEach(usuario -> System.out.println(usuario));
         return 1;
     }
 
+    /**
+     * Método que actualiza un usuario en la BD y en la lista de usuarios de la memoria.
+     * @param usuario Objeto usuario a actualizar.
+     * @return 1 si se ha actualizado correctamente, -1 en caso contrario.
+     */
     public Integer updateUsuario(Usuario usuario) {
         try {
             if(daoUsuario.update(usuario) == 1) {
@@ -65,6 +86,11 @@ public class GestionUsuario {
         return -1;
     }
 
+    /**
+     * Método que elimina un usuario de la BD y de la lista de usuarios de la memoria.
+     * @param usuario Objeto usuario a eliminar.
+     * @return 1 si se ha eliminado correctamente, -1 en caso contrario.
+     */
     public Integer deleteUsuario(Usuario usuario) {
         try {
             if(daoUsuario.delete(usuario) == 1) {
@@ -77,10 +103,19 @@ public class GestionUsuario {
         return -1;
     }
 
+    /**
+     * Método que obtiene la lista de usuarios de la memoria.
+     * @return Lista de usuarios.
+     */
     public ArrayList<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
+    /**
+     * Método que verifica si un usuario tiene una penalización activa.
+     * @param usuario Objeto usuario.
+     * @return Verdadero si el usuario tiene una penalización activa, falso en caso contrario.
+     */
     public boolean verificarPenalizacion(Usuario usuario) {
         if (usuario.getPenalizacionHasta() != null && usuario.getPenalizacionHasta().isBefore(LocalDate.now())) {
             System.out.println("El usuario no puede realizar préstamos porque tiene una penalización activa.");
@@ -89,14 +124,29 @@ public class GestionUsuario {
         return false;
     }
 
+    /**
+     * Método que verifica si existe un usuario administrador con los datos del usuario pasado como parámetro.
+     * @param usuario Objeto usuario.
+     * @return Verdadero si existe un usuario administrador, falso en caso contrario.
+     */
     public boolean verificarUsuarioAdministrador(Usuario usuario) {
         return daoUsuario.verificarUsuarioAdministrador(usuario);
     }
 
+    /**
+     * Método que verifica si existe un usuario normal con los datos del usuario pasado como parámetro.
+     * @param usuario Objeto usuario.
+     * @return Verdadero si existe un usuario normal, falso en caso contrario.
+     */
     public boolean verificarUsuarioNormal(Usuario usuario) {
         return daoUsuario.verificarUsuarioNormal(usuario);
     }
 
+    /**
+     * Método que obtiene un usuario por su ID.
+     * @param idUsuario ID del usuario.
+     * @return Objeto usuario, si se encuentra. Null en caso contrario.
+     */
     public Usuario getUsuarioById(Integer idUsuario) {
         try {
             return daoUsuario.findUsuarioById(idUsuario);
@@ -106,6 +156,12 @@ public class GestionUsuario {
         return null;
     }
 
+    /**
+     * Método que obtiene un usuario por su email y password.
+     * @param email Email del usuario.
+     * @param password Password del usuario.
+     * @return Objeto usuario, si se encuentra. Null en caso contrario.
+     */
     public Usuario getUsuarioByEmailPassword(String email, String password) {
         try {
             return daoUsuario.getUsuarioByEmailPassword(email, password);

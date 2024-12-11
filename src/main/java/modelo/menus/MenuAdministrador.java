@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class MenuAdministrador {
     static Scanner k =  new Scanner(System.in);
     MenuGestionUsuarios menu = new MenuGestionUsuarios();
+
+    /**
+     * Método que imprime el menú principal.
+     */
     private static void prtMenu() {
         System.out.println("""
                 1 - Gestión de usuarios
@@ -19,6 +23,9 @@ public class MenuAdministrador {
                 """);
     }
 
+    /**
+     * Método que gestiona el menú principal.
+     */
     private static void menu() {
         boolean salida = false;
         while (!salida) {
@@ -35,6 +42,9 @@ public class MenuAdministrador {
         }
     }
 
+    /**
+     * Método que ejecuta el menú principal.
+     */
     public static void run() {
         menu();
     }

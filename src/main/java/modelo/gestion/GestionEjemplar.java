@@ -10,6 +10,9 @@ public class GestionEjemplar {
     private ArrayList<Ejemplar> listaEjemplars;
     private DAOEjemplar daoEjemplar;
 
+    /**
+     * Constructor de la clase.
+     */
     public GestionEjemplar() {
         listaEjemplars = new ArrayList<>();
         daoEjemplar = new DAOEjemplar();
@@ -20,6 +23,11 @@ public class GestionEjemplar {
         }
     }
 
+    /**
+     * Método que crea un nuevo ejemplar en la BD, y lo añade a la lista de ejemplares de la memoria.
+     * @param ejemplar Objeto ejemplar a crear.
+     * @return 1 si se ha creado correctamente, -1 en caso contrario.
+     */
     public Integer createEjemplar(Ejemplar ejemplar) {
         try {
             if(daoEjemplar.create(ejemplar) == 1) {
@@ -32,6 +40,11 @@ public class GestionEjemplar {
         return -1;
     }
 
+    /**
+     * Método que lee un ejemplar de la BD.
+     * @param ejemplar Objeto ejemplar a leer.
+     * @return 1 si se ha encontrado el ejemplar, -1 en caso contrario.
+     */
     public Integer readEjemplar(Ejemplar ejemplar) {
         Ejemplar ejemplarDB = null;
         try {
@@ -47,11 +60,20 @@ public class GestionEjemplar {
         return -1;
     }
 
+    /**
+     * Método que lee todos los ejemplares de la BD.
+     * @return 1 si se han leido todos los ejemplares, -1 en caso contrario.
+     */
     public Integer readAllEjemplares() {
         listaEjemplars.forEach(ejemplar -> System.out.println(ejemplar));
         return 1;
     }
 
+    /**
+     * Método que actualiza un ejemplar en la BD y en la lista de ejemplares de la memoria.
+     * @param ejemplar Objeto ejemplar a actualizar.
+     * @return 1 si se ha actualizado correctamente, -1 en caso contrario.
+     */
     public Integer updateEjemplar(Ejemplar ejemplar) {
         try {
             if(daoEjemplar.update(ejemplar) == 1) {
@@ -64,6 +86,11 @@ public class GestionEjemplar {
         return -1;
     }
 
+    /* 
+     * Método que elimina un ejemplar de la BD y de la lista de ejemplares de la memoria.
+     * @param ejemplar Objeto ejemplar a eliminar.
+     * @return 1 si se ha eliminado correctamente, -1 en caso contrario.
+     */
     public Integer deleteEjemplar(Ejemplar ejemplar) {
         try {
             if(daoEjemplar.delete(ejemplar) == 1) {
@@ -76,6 +103,11 @@ public class GestionEjemplar {
                 return -1;
     }
 
+    /**
+     * Método que verifica si el ejemplar está disponible para ser prestado.
+     * @param ejemplar Objeto ejemplar.
+     * @return Verdadero si el ejemplar está disponible, falso en caso contrario.
+     */
     public boolean verificarEstadoEjemplar(Ejemplar ejemplar) {
         if (ejemplar != null && ejemplar.getEstado().equals("Disponible")) {
             return true;
@@ -84,6 +116,11 @@ public class GestionEjemplar {
         return false;
     }
 
+    /**
+     * Método que obtiene un ejemplar por su ID.
+     * @param id ID del ejemplar.
+     * @return Objeto ejemplar, si se encuentra. Null en caso contrario.
+     */
     public Ejemplar getEjemplarById(Integer id) {
         try {
             return daoEjemplar.findEjemplarById(id);
@@ -93,10 +130,18 @@ public class GestionEjemplar {
         return null;
     }
 
+    /**
+     * Método que obtiene la lista de ejemplares de la memoria.
+     * @return Lista de ejemplares.
+     */
     public ArrayList<Ejemplar> getListaEjemplares() {
         return listaEjemplars;
     }
 
+    /**
+     * Método que imprime el stock de ejemplares. 
+     * Solo imprime los ejemplares que están disponibles.
+     */
     public void getStock() {
         listaEjemplars.stream()
                 .filter(ejemplar -> "Disponible".equals(ejemplar.getEstado()))

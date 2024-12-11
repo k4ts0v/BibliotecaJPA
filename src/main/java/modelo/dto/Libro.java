@@ -16,10 +16,18 @@ public class Libro {
     @Column(name = "autor", nullable = false, length = 100)
     private String autor;
 
+    /**
+     * Método que obtiene el ISBN del libro.
+     * @return ISBN del libro.
+     */
     public String getIsbn() {
         return isbn;
     }
 
+    /**
+     * Método que establece el ISBN del libro.
+     * @param isbn ISBN del libro.
+     */
     public void setIsbn(String isbn) {
         // Quitar guiones, si tiene.
         if (isbn.matches(".*-.*")) {
@@ -30,35 +38,70 @@ public class Libro {
         }
     }
 
+    /**
+     * Método que obtiene el título del libro.
+     * @return Título del libro.
+     */
     public String getTitulo() {
         return titulo;
     }
 
+    /**
+     * Método que establece el título del libro.
+     * @param titulo Título del libro.
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    /**
+     * Método que obtiene el autor del libro.
+     * @return Autor del libro.
+     */
     public String getAutor() {
         return autor;
     }
 
+    /**
+     * Método que establece el autor del libro.
+     * @param autor Autor del libro.
+     */
     public void setAutor(String autor) {
         this.autor = autor;
     }
 
+    /**
+     * Constructor vacío de un libro.
+     */
     public Libro() {}
 
+    /**
+     * Constructor de un libro con ISBN.
+     * @param isbn ISBN del libro.
+     * @param titulo Título del libro.
+     * @param autor Autor del libro.
+     */
     public Libro(String isbn, String titulo, String autor) {
         setIsbn(isbn);
         setTitulo(titulo);
         setAutor(autor);
     }
 
+    /**
+     * Constructor de un libro sin ISBN.
+     * @param autor Autor del libro.
+     * @param titulo Título del libro.
+     */
     public Libro(String autor, String titulo) {
         setAutor(autor);
         setTitulo(titulo);
     }
 
+    /**
+     * Método que compara dos libros.
+     * @param o Objeto libro.
+     * @return Verdadero si son iguales, falso en caso contrario.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,11 +110,20 @@ public class Libro {
         return Objects.equals(getIsbn(), libro.getIsbn());
     }
 
+    /**
+     * Método que obtiene el hashcode del libro, basándose en su ISBN.
+     * @return Hashcode del objeto.
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(getIsbn());
     }
 
+
+    /**
+     * Método que imprime el objeto.
+     * @return String con la representación del objeto.
+     */
     @Override
     public String toString() {
         return "Libro{" +
@@ -81,6 +133,11 @@ public class Libro {
                 '}';
     }
 
+    /**
+     * Método que valida si un ISBN es correcto.
+     * @param isbn ISBN a validar.
+     * @return Verdadero si es correcto, falso en caso contrario.
+     */
     public boolean validarISBN(String isbn) {
         // Verificar si el ISBN solo contiene números y tiene 13 dígitos.
         if (isbn.matches("[0-9]{13}")) {
